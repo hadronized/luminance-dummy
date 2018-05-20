@@ -1,7 +1,7 @@
 extern crate luminance;
 
 use luminance::context::{GraphicsContext, WithGraphicsState, thread_acquire_context};
-use luminance::state::GraphicsState;
+use luminance::state::{GraphicsState, StateQueryError};
 
 pub struct DummyContext {
   graphics_state: GraphicsState
@@ -28,7 +28,7 @@ struct DummyContextBuilder;
 impl WithGraphicsState for DummyContextBuilder {
   type Output = DummyContext;
 
-  fn call_once<F>(self, gfx_state: F) -> Self::Output where F: FnOnce() -> GraphicsState {
-    DummyContext { graphics_state: gfx_state() }
+  fn call_once<F>(self, gfx_state: F) -> Self::Output where F: FnOnce() -> Result<GraphicsState, StateQueryError> {
+    DummyContext { graphics_state: gfx_state().expect("graphics state") }
   }
 }
