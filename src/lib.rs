@@ -1,10 +1,12 @@
 extern crate luminance;
 
+use std::cell::RefCell;
+use std::rc::Rc;
 use luminance::context::{GraphicsContext, WithGraphicsState, thread_acquire_context};
 use luminance::state::{GraphicsState, StateQueryError};
 
 pub struct DummyContext {
-  graphics_state: GraphicsState
+  graphics_state: Rc<RefCell<GraphicsState>>
 }
 
 impl DummyContext {
@@ -14,8 +16,8 @@ impl DummyContext {
 }
 
 unsafe impl GraphicsContext for DummyContext {
-  fn graphics_state(&mut self) -> &mut GraphicsState {
-    &mut self.graphics_state
+  fn state(&self) -> &Rc<RefCell<GraphicsState>> {
+    &self.graphics_state
   }
 
   fn swap_buffers(&mut self) {
@@ -29,6 +31,9 @@ impl WithGraphicsState for DummyContextBuilder {
   type Output = DummyContext;
 
   fn call_once<F>(self, gfx_state: F) -> Self::Output where F: FnOnce() -> Result<GraphicsState, StateQueryError> {
-    DummyContext { graphics_state: gfx_state().expect("graphics state") }
+    println!("creating context…");
+
+    let state = gfx_state().expect("graphics state");
+    DummyContext { graphics_state: Rc::new(RefCell::new(state))  }
   }
 }
