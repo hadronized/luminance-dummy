@@ -131,13 +131,15 @@ dependencies = [
  "gl 0.10.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "glfw 0.20.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "luminance 0.25.7",
- "luminance-windowing 0.1.1 (registry+https://github.com/rust-lang/crates.io-index)",
+ "luminance-windowing 0.1.1",
 ]
 
 [[package]]
 name = "luminance-windowing"
 version = "0.1.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
+dependencies = [
+ "luminance 0.25.7",
+]
 
 [[package]]
 name = "nom"
@@ -284,7 +286,6 @@ dependencies = [
 "checksum libc 0.2.41 (registry+https://github.com/rust-lang/crates.io-index)" = "ac8ebf8343a981e2fa97042b14768f02ed3e1d602eac06cae6166df3c8ced206"
 "checksum log 0.3.9 (registry+https://github.com/rust-lang/crates.io-index)" = "e19e8d5c34a3e0e2223db8e060f9e8264aeeb5c5fc64a4ee9965c062211c024b"
 "checksum log 0.4.1 (registry+https://github.com/rust-lang/crates.io-index)" = "89f010e843f2b1a31dbd316b3b8d443758bc634bed37aabade59c686d644e0a2"
-"checksum luminance-windowing 0.1.1 (registry+https://github.com/rust-lang/crates.io-index)" = "7ff18f81ae6b1679919733c5469ea8b9fe406552498b6452e529b99b4972aa9e"
 "checksum nom 1.2.4 (registry+https://github.com/rust-lang/crates.io-index)" = "a5b8c256fd9471521bcb84c3cdba98921497f1a331cbc15b8030fc63b82050ce"
 "checksum num 0.1.42 (registry+https://github.com/rust-lang/crates.io-index)" = "4703ad64153382334aa8db57c637364c322d3372e097840c72000dabdcf6156e"
 "checksum num-bigint 0.1.44 (registry+https://github.com/rust-lang/crates.io-index)" = "e63899ad0da84ce718c14936262a41cee2c79c981fc0a0e7c7beb47d5a07e8c1"

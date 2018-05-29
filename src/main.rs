@@ -2,9 +2,8 @@ extern crate luminance;
 extern crate luminance_dummy;
 extern crate luminance_glfw;
 
-use luminance::context::GraphicsContext;
 use luminance_glfw::events::{Action, Key, WindowEvent};
-use luminance_glfw::window::{self, WindowDim, WindowOpt};
+use luminance_glfw::surface::{GlfwSurface, Surface, WindowDim, WindowOpt};
 use std::sync::mpsc;
 use std::thread;
 
@@ -13,7 +12,7 @@ enum Cmd {
 }
 
 fn main() {
-  let (mut surface, mut events) = window::new(WindowDim::Windowed(800, 600), "test", WindowOpt::default()).expect("window::new");
+  let (mut surface, mut events) = GlfwSurface::new(WindowDim::Windowed(800, 600), "test", WindowOpt::default()).expect("window::new");
 
   // channel between event loop and render loop
   let (cmd_sx, cmd_rx) = mpsc::channel();
@@ -40,7 +39,8 @@ fn main() {
       }
     }
 
-    println!("render!");
-    surface.swap_buffers();
+    surface.draw(|| {
+      println!("render!");
+    });
   }
 }
